@@ -16,33 +16,37 @@ const { NotImplementedError } = require('../extensions/index.js');
 class Queue {
 
     constructor() {
-      this.items = {}
-      this.frontIndex = 0
-      this.backIndex = 0
+      this.items = []
   }
 
     getUnderlyingList() {
-      const nodes = {}
-      let currentNode = this.items[this.frontIndex]
-
-      while (currentNode) {
-        nodes.value = currentNode;
-        currentNode = currentNode.next;
+      let list;
+      class ListNode {
+        constructor(x) {
+          this.value = x;
+          this.next = null;
+        }
       }
-      return nodes;
+      function convertArrayToList(arr) {
+        return list = arr.reverse().reduce((acc, cur) => {
+          if (acc) {
+            const node = new ListNode(cur);
+            node.next = acc;
+            return node;
+          }
+
+          return new ListNode(cur);
+        }, null);
+      }convertArrayToList(this.items)
+      return list
     }
 
     enqueue(value) {
-      this.items[this.backIndex] = value
-      this.backIndex++
-      return value
+      this.items.push(value)
     }
 
     dequeue() {
-      const item = this.items[this.frontIndex]
-      delete this.items[this.frontIndex]
-      this.frontIndex++
-      return item
+      return this.items.shift()
     }
 }
 
