@@ -17,16 +17,19 @@ class Queue {
 
     constructor() {
       this.items = {}
-      this.frontIndex = null
-      this.backIndex = null
+      this.frontIndex = 0
+      this.backIndex = 0
   }
 
     getUnderlyingList() {
-      let curr = this.items[this.frontIndex]
-      let listValues = {}
-      while(curr){
-        listValues.value = this.frontIndex
+      const nodes = {}
+      let currentNode = this.items[this.frontIndex]
+
+      while (currentNode) {
+        nodes.value = currentNode;
+        currentNode = currentNode.next;
       }
+      return nodes;
     }
 
     enqueue(value) {
